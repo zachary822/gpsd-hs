@@ -99,6 +99,8 @@ executable gpsd-hs
     -- Other library packages from which modules are imported.
     build-depends:
         base ^>=4.20.0.0,
+        network,
+        optparse-applicative,
         gpsd-hs
 
     -- Directories containing source files.

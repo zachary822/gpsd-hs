@@ -31,6 +31,21 @@ instance FromJSON Satellite where
       <*> o .: "gnssid"
       <*> o .: "svid"
 
+data Device = Device
+  { path :: Text
+  , driver :: Text
+  , subtype :: Text
+  , activated :: UTCTime
+  , flags :: Int
+  , native :: Int
+  , bps :: Int
+  , parity :: Text
+  , stopbits :: Int
+  , cycle :: Double
+  , mincycle :: Double
+  }
+  deriving (Generic, Show, Eq, FromJSON)
+
 data Info
   = VersionInfo
       { release :: Text
@@ -39,20 +54,7 @@ data Info
       , proto_minor :: Int
       }
   | DevicesInfo
-      { devices :: [Info]
-      }
-  | DeviceInfo
-      { path :: Text
-      , driver :: Text
-      , subtype :: Text
-      , activated :: UTCTime
-      , flags :: Int
-      , native :: Int
-      , bps :: Int
-      , parity :: Text
-      , stopbits :: Int
-      , cycle :: Double
-      , mincycle :: Double
+      { devices :: [Device]
       }
   | TPVInfo
       { device :: Text
