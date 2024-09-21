@@ -58,7 +58,8 @@ library
     import:           warnings
 
     -- Modules exported by the library.
-    exposed-modules:  Data.GPSD.Types
+    exposed-modules:  Network.GPSD.Types,
+                      Network.GPSD
 
     -- Modules included in this library but not exported.
     -- other-modules:
@@ -69,7 +70,12 @@ library
     -- Other library packages from which modules are imported.
     build-depends:    base ^>=4.20.0.0,
                       aeson,
-                      text
+                      text,
+                      time,
+                      aeson,
+                      mtl,
+                      bytestring,
+                      network
 
     -- Directories containing source files.
     hs-source-dirs:   src
@@ -93,10 +99,6 @@ executable gpsd-hs
     -- Other library packages from which modules are imported.
     build-depends:
         base ^>=4.20.0.0,
-        network,
-        aeson,
-        mtl,
-        bytestring,
         gpsd-hs
 
     -- Directories containing source files.
