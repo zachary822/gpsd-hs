@@ -15,14 +15,14 @@ import Network.GPSD.Types
 import Network.Socket
 import Network.Socket.ByteString
 
-getRow :: Socket -> StateT ByteString IO [Maybe Info]
+getRow :: Socket -> StateT ByteString IO [Info]
 getRow s = do
   buf <- get
   msg <- liftIO $ recv s 4096
   case unsnoc (B.split 10 (buf <> msg)) of
     Just (xs, l) -> do
       put l
-      return (map (decode . B.fromStrict) xs)
+      return $ catMaybes (map (decode . B.fromStrict) xs)
     Nothing -> return []
 
 processMessage :: (Info -> IO ()) -> Socket -> IO ()
@@ -36,7 +36,7 @@ processMessage f s = do
       evalStateT
         ( forever $ do
             msgs <- getRow s
-            liftIO $ traverse f (catMaybes msgs)
+            liftIO $ traverse f msgs
         )
         ""
     Nothing -> fail "fail to initialize connection"

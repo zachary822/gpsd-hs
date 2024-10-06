@@ -57,8 +57,8 @@ data Info
       { devices :: [Device]
       }
   | TPVInfo
-      { device :: Text
-      , status :: Int
+      { device :: Maybe Text
+      , status :: Maybe Int
       , mode :: Int
       , time :: UTCTime
       , ept :: Double
@@ -82,7 +82,7 @@ data Info
       , sep :: Double
       }
   | SkyInfo
-      { device :: Text
+      { device :: Maybe Text
       , xdop :: Double
       , ydop :: Double
       , vdop :: Double
